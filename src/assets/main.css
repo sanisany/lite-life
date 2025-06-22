@@ -1,0 +1,22 @@
+@import './base.css';
+
+:root {
+  --base-header-height: 60px;
+  --base-aside-width: 200px;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  height: 100%;
+  overflow: hidden;
+}
+
+.test {
+  border: 1px solid black;
+}
