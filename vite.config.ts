@@ -8,8 +8,6 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
 
 import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
@@ -20,22 +18,13 @@ export default defineConfig({
     AutoImport({
       resolvers: [
         ElementPlusResolver(),
-        IconsResolver({
-          prefix: 'Icon',
-        }),
       ]
     }),
     Components({
       resolvers: [
-        IconsResolver({
-          enabledCollections: ['ep'],
-        }),
         ElementPlusResolver()
       ]
     }),
-    Icons({
-      autoInstall: true
-    })
   ],
   resolve: {
     alias: {

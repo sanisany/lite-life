@@ -1,47 +1,55 @@
+import { getUserInfo, login } from "@/api/methods/userApi";
+import type { LoginRequset } from "@/types/api/user";
+import type { UserInfo } from "@/types/stores/user";
 import { defineStore } from "pinia";
-import {ref, computed }from 'vue'
-import type { ComputedRef } from "vue";
-
-type UserInfo = {
-    userId: string,
-    username: string,
-}
-
-const userTokenKey = {
-    accessToken: "__LITE_LIFE_ACCESS_TOKEN__",
-    refreshToken: "__LITE_LIFE_REFRESH_TOKEN__"
-}
+import { reactive } from 'vue'
 
 export const useUserStore = defineStore('userStore', () => {
-    localStorage.setItem(userTokenKey.accessToken, "123")
-    let info: UserInfo = { userId: '', username: '' }
-    const accessToken = localStorage.getItem(userTokenKey.accessToken)
-    if(accessToken) {
-        info = {
-                userId: "1000001",
-                username: "莫匆匆归去"
-            }
+
+    const info: UserInfo = {
+        id: '',
+        userName: '',
+        avatar: '',
     }
 
-    const userInfo = ref<UserInfo>(info)
+    const userInfo = reactive(info)
 
-    const loggedIn: ComputedRef<boolean> = computed(() => {
-        return userInfo.value.userId !== '' && userInfo.value.username !== ''
-    })
+    const getUser = () => {
+        if (info.id) return;
+        getUserInfo()
+            .then(resp => {
+                if (resp) {
+                    userInfo.id = resp.id;
+                    userInfo.userName = resp.userName;
+                    userInfo.avatar = resp.avatar;
+                    userInfo.menuList = resp.menuList;
+                    userInfo.roles = resp.roles;
+                    userInfo.permits = resp.permits;
+                }
 
-    const doLogin = async (email: string, password: string) => {
-        const response = await new Promise<UserInfo>((resolve) => {
-            resolve({
-                userId: "1000001",
-                username: "莫匆匆归去"
-            }) 
+            })
+    }
+
+    const loginUser = (loginRequest: LoginRequset) : boolean => {
+        login(loginRequest)
+        .then(resp => {
+            if(resp) {
+                localStorage.setItem('access_token', resp.access_token)
+                localStorage.setItem('refresh_token', resp.refresh_token)
+                localStorage.setItem('expires_in', String(resp.expires_in))
+                return true;
+            }
+            return false
+        }).catch(err => {
+            console.error('Login failed:', err);
+            return false;
         })
-        userInfo.value = response
+        return false;
     }
 
     return {
-        userInfo,
-        loggedIn,
-        doLogin
+        getUser,
+        loginUser,
+        userInfo
     }
 })

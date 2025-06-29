@@ -1,11 +1,11 @@
 <template>
     <el-container class="base-layout">
         <el-header class="base-layout__header">
-            <BaseHeader />
+            <BaseHeader :user="userStore.userInfo" />
         </el-header>
         <el-container class="base-layout__inner">
             <el-aside class="base-layout__aside">
-                <BaseAside />
+                <BaseAside :menu-list="userStore.userInfo.menuList" />
             </el-aside>
             <el-main class="base-layout__main">
                 <RouterView />
@@ -13,11 +13,16 @@
         </el-container>
     </el-container>
 </template>
-
+   
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import BaseAside from '@/components/layout/base/BaseAside.vue'
-import BaseHeader from '@/components/layout/base/BaseHeader.vue';
+import BaseAside from '@/components/layout/MenuAside.vue'
+import BaseHeader from '@/components/layout/MainHeader.vue';
+import { useUserStore } from '@/stores/userStore';
+
+const userStore = useUserStore()
+userStore.getUser()
+
 </script>
 
 <style scoped lang="less">

@@ -8,13 +8,16 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    BaseAside: typeof import('./src/components/layout/base/BaseAside.vue')['default']
-    BaseHeader: typeof import('./src/components/layout/base/BaseHeader.vue')['default']
-    BaseMain: typeof import('./src/components/layout/base/BaseMain.vue')['default']
+    BaseAside: typeof import('./src/components/layout/BaseAside.vue')['default']
+    BaseHeader: typeof import('./src/components/layout/BaseHeader.vue')['default']
+    BaseMain: typeof import('./src/components/layout/BaseMain.vue')['default']
+    CaptchaCodeButton: typeof import('./src/components/captcha/CaptchaCodeButton.vue')['default']
+    CaptchaSendButton: typeof import('./src/components/captcha/CaptchaSendButton.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
@@ -25,16 +28,21 @@ declare module 'vue' {
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
-    ElLink: typeof import('element-plus/es')['ElLink']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
-    ElSubMenuGroup: typeof import('element-plus/es')['ElSubMenuGroup']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
-    ElText: typeof import('element-plus/es')['ElText']
+    MainHeader: typeof import('./src/components/layout/MainHeader.vue')['default']
+    MainView: typeof import('./src/components/layout/MainView.vue')['default']
+    MenuAside: typeof import('./src/components/layout/MenuAside.vue')['default']
+    PagedTable: typeof import('./src/components/table/PagedTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    VerifyCodeButton: typeof import('./src/components/captcha/VerifyCodeButton.vue')['default']
+  }
+  export interface GlobalDirectives {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
